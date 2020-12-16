@@ -5,6 +5,8 @@ import re
 import scrapy
 from redis import StrictRedis
 
+from arknights.items import ArknightsItem
+
 
 class Arknights(scrapy.Spider):
     name = "arknights"
@@ -29,5 +31,10 @@ class Arknights(scrapy.Spider):
 
     def parse_detail(self, response):
         data = json.loads(response.text)
-        card = data['data']['list']
+        cards = data['data']['list']
+        for card in cards:
+            item = ArknightsItem()
+            item['ts'] = card['ts']
+            item['chars'] = card['chars']
+            yield item
 

@@ -14,3 +14,5 @@ class ArknightsItem(scrapy.Item):
     username = scrapy.Field()
     userUid = scrapy.Field()
     cookie = scrapy.Field()
+    ts = scrapy.Field()
+    chars = scrapy.Field()

@@ -30,7 +30,7 @@ class RemoteChromeMiddleware(object):
                 new_cookie = self._get_cookies(request.url, request.headers['User-Agent'].decode())
                 expires = int(new_cookie.pop("expires"))
                 self.redis.hset(self.userUid, self.userUid, json.dumps(new_cookie))
-                self.redis.expireat(self.userUid, expires)
+                self.redis.expireat(self.userUid, expires-3600)
                 return scrapy.http.Request(new_url, dont_filter=True,
                                            cookies=new_cookie, method='GET')
         return response
